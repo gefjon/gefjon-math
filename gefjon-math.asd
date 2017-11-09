@@ -8,5 +8,9 @@
 (defsystem gefjon-math
   :name "gefjon-math"
   :version "0.0.0"
+  :author "Arthur Goldman"
+  :license "MIT"
+  :description "Math utilities"
+  :long-description "Some mathematical utility functions I have written for use in my classes."
   :serial t
   :components ((:file "prime-factors")))

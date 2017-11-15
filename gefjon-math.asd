@@ -1,7 +1,10 @@
 ;;;; -*- Mode: Lisp; Syntax: ANSI-Common-Lisp; Base: 10 -*-
 (defpackage gmath
   (:use :cl :asdf)
-  (:export "PRIME-FACTORS"))
+  (:export :prime-factors
+           :factorial
+           :permute
+           :combine))
 
 (in-package :gmath)
 
@@ -13,4 +16,5 @@
   :description "Math utilities"
   :long-description "Some mathematical utility functions I have written for use in my classes."
   :serial t
-  :components ((:file "prime-factors")))
+  :components ((:file "prime-factors")
+               (:file "combinatorics")))

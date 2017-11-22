@@ -15,34 +15,44 @@
       factors
       (cons n factors)))
 
+(defmacro check-limit-and-check-factor (n
+                                        test-factor
+                                        limit
+                                        factors
+                                        factor-adjust)
+  `(if (>= ,test-factor ,limit)
+       (no-more-factors ,n ,factors)
+       (if (factor-p ,n ,test-factor)
+           (first-factor (/ ,n ,test-factor)
+                         :factors (cons ,test-factor ,factors))
+           (more-factors ,n
+                         :limit ,limit
+                         :test-factor (+ ,test-factor ,factor-adjust)
+                         :factors ,factors))))
+
+(defun first-factor (n &key
+                         (factors '())
+                         (limit (find-limit n)))
+  (declare (integer n)
+           (list factors))
+  (check-limit-and-check-factor n
+                                2
+                                limit
+                                factors
+                                1))
+
 (defun more-factors (n &key
                          (limit (find-limit n))
-                         (test-factor 2)
+                         (test-factor 3)
                          (factors '()))
   (declare (integer n limit test-factor)
            (list factors))
-  (if (factor-p n test-factor)
-      (let ((new-n (/ n test-factor)))
-        (prime-factors-iter new-n
-                            :factors (cons test-factor factors)))
-      (prime-factors-iter n
-                          :limit limit
-                          :test-factor (+ test-factor 1)
-                          :factors factors)))
-
-(defun prime-factors-iter (n &key
-                               (limit (find-limit n))
-                               (test-factor 2)
-                               (factors '()))
-    (declare (integer n limit test-factor)
-           (list factors))
-    (if (>= test-factor limit)
-        (no-more-factors n factors)
-        (more-factors n
-                      :limit limit
-                      :test-factor test-factor
-                      :factors factors)))
+  (check-limit-and-check-factor n
+                                test-factor
+                                limit
+                                factors
+                                2))
 
 (defun prime-factors (n)
   (declare (integer n))
-  (prime-factors-iter n))
+  (first-factor n))

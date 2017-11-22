@@ -20,24 +20,25 @@
                                         limit
                                         factors
                                         factor-adjust)
-  `(if (>= ,test-factor ,limit)
-       (no-more-factors ,n ,factors)
-       (if (factor-p ,n ,test-factor)
-           (first-factor (/ ,n ,test-factor)
-                         :factors (cons ,test-factor ,factors))
-           (more-factors ,n
-                         :limit ,limit
-                         :test-factor (+ ,test-factor ,factor-adjust)
-                         :factors ,factors))))
+  (let ((limit-name (gensym)))
+    `(let ((,limit-name ,limit))
+       (if (>= ,test-factor ,limit-name)
+           (no-more-factors ,n ,factors)
+           (if (factor-p ,n ,test-factor)
+               (first-factor (/ ,n ,test-factor)
+                             :factors (cons ,test-factor ,factors))
+               (more-factors ,n
+                             :limit ,limit-name
+                             :test-factor (+ ,test-factor ,factor-adjust)
+                             :factors ,factors))))))
 
 (defun first-factor (n &key
-                         (factors '())
-                         (limit (find-limit n)))
+                         (factors '()))
   (declare (integer n)
            (list factors))
   (check-limit-and-check-factor n
                                 2
-                                limit
+                                (find-limit n)
                                 factors
                                 1))
 

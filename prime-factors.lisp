@@ -73,4 +73,8 @@
 (defun prime-factors (n)
   "Return a list of the prime factors of n"
   (check-type n integer)
-  (factor-start-iter n '()))
+  (let ((factors '()))
+    (when (minusp n)
+      (setf n (* n -1)
+            factors (cons -1 factors)))
+    (factor-start-iter n factors)))

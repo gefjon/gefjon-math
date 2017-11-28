@@ -4,7 +4,11 @@
   (:export :prime-factors
            :factorial
            :permute
-           :combine))
+           :combine
+           :find-nth-element
+           :first-n-elements
+           :arithmetic-sequence
+           :geometric-sequence))
 
 (in-package :gmath)
 
@@ -17,4 +21,5 @@
   :long-description "Some mathematical utility functions I have written for use in my classes."
   :serial t
   :components ((:file "prime-factors")
-               (:file "combinatorics")))
+               (:file "combinatorics")
+               (:file "sequences")))

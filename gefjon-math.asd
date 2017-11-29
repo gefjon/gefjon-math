@@ -5,10 +5,15 @@
            :factorial
            :permute
            :combine
-           :find-nth-element
-           :first-n-elements
+           :find-nth-element-of-recursive
+           :first-n-elements-of-recursive
+           :recursive-arithmetic-sequence
+           :recursive-geometric-sequence
+           :sum-first-n-elements-of-recursive
+           :sum-recursive-from-a-to-b
            :arithmetic-sequence
-           :geometric-sequence))
+           :geometric-sequence
+           :sum-first-n-elements))
 
 (in-package :gmath)
 
